@@ -18,11 +18,9 @@ def load_model():
     return model
 
 
-
 def convert_row(data_row):
     data_values = np.array(list(data_row.values())).reshape(1,-1)
     return data_values
-
 
 
 def predict_failure(data, model):
@@ -31,10 +29,6 @@ def predict_failure(data, model):
     data_values = convert_row(data)
     prediction = model.predict_proba(data_values)
     PREDICTION_METRIC.labels(machine_id=machine_id).set(prediction[0][1])
-    
-
-
-    
     return max
 
 if __name__ == "__main__":
@@ -45,6 +39,4 @@ if __name__ == "__main__":
     
     while True:
         data = get_data(url)
-        
-
         prediction = predict_failure(data,model)
